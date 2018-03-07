@@ -74,7 +74,7 @@ public class XQJSample {
 		XQueryExecutable exec = compiler.compile(new File("custom.xqy"));
 
 		DocumentBuilder builder = saxon.newDocumentBuilder();
-		XdmNode doc = builder.build(new File ("books.xml"));
+		XdmNode doc = builder.build(new File ("books2.xml"));
 
 		XQueryEvaluator query = exec.load();
 		query.setContextItem(doc);

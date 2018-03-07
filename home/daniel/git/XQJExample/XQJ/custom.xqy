@@ -1,3 +1,3 @@
-for $x in doc("books.xml")/books/book
+for $x in /buuks/buuk
 where $x/price>30
 return $x/title
