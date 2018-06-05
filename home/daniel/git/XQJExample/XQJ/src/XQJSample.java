@@ -29,7 +29,11 @@ public class XQJSample {
 			System.out.println("XQY internal binding to XML");
 			execute();
 			System.out.println("XML doco defined at runtime");
-			executeCustom();
+			executeCustom("custom.xqy", "books2.xml");
+			System.out.println("\n\nFact tables (?)");
+			executeCustom("LDMEntities.xqy", "UDS_Bus_Matrix.ldm");
+			System.out.println("\n\nRelationships (?)");
+			executeCustom("LDMRelationships.xqy", "UDS_Bus_Matrix.ldm");
 		}
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -40,7 +44,6 @@ public class XQJSample {
 		}
 
 		catch (SaxonApiException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -67,14 +70,14 @@ public class XQJSample {
 	 * @throws SaxonApiException
 	 * @throws IOException
 	 */
-	private static void executeCustom() throws SaxonApiException, IOException {
+	private static void executeCustom(String xquery, String xml) throws SaxonApiException, IOException {
 		Processor saxon = new Processor(false);
 
 		XQueryCompiler compiler = saxon.newXQueryCompiler();
-		XQueryExecutable exec = compiler.compile(new File("custom.xqy"));
+		XQueryExecutable exec = compiler.compile(new File(xquery));
 
 		DocumentBuilder builder = saxon.newDocumentBuilder();
-		XdmNode doc = builder.build(new File ("books2.xml"));
+		XdmNode doc = builder.build(new File (xml));
 
 		XQueryEvaluator query = exec.load();
 		query.setContextItem(doc);
